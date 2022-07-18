@@ -17,4 +17,8 @@ $app->router->get("/function", function(){
 
 $app->router->get("/contact", "contact");
 
+$app->router->post("/contact", function () {
+    echo "AY CARAMBA!";
+});
+
 $app->run();
