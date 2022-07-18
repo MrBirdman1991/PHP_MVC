@@ -4,11 +4,6 @@ namespace Core;
 
 class Router{
     protected array $routes = [];
-    public Request $request;
-
-    public function __construct($request){
-        $this->request = $request;
-    }
 
     public function get($path, $callback){
         $this->routes["get"][$path] = $callback;
@@ -19,11 +14,12 @@ class Router{
     }
 
     public function resolve(){
-       $path = $this->request->getPath();
-       $method = $this->request->getMethod();
+       $path = Application::$app->request->getPath();
+       $method = Application::$app->request->getMethod();
        $callback = $this->routes[$method][$path] ?? false;
        
        if(!$callback){
+        Application::$app->response->setStatusCode(404);
          return  "not found";
        }
 
