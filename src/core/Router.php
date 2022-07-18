@@ -4,7 +4,7 @@ namespace Core;
 
 class Router{
     protected array $routes = [];
-    private Request $request;
+    public Request $request;
 
     public function __construct($request){
         $this->request = $request;
@@ -24,10 +24,31 @@ class Router{
        $callback = $this->routes[$method][$path] ?? false;
        
        if(!$callback){
-         echo "not found";
-         return;
+         return  "not found";
        }
 
-       echo call_user_func($callback);
+       if(is_string($callback)){
+        return $this->renderView($callback);
+       }
+
+       return call_user_func($callback);
+    }
+
+    public function renderView($view){
+        $layoutContent = $this->layoutContent();
+        $viewContent = $this->renderOnlyView($view);
+        return str_replace("{{content}}", $viewContent, $layoutContent);
+    }
+
+    private function layoutContent(){
+        ob_start();
+        include_once Application::$ROOT_DIR."/views/layouts/mainLayout.php";
+        return ob_get_clean();
+    }
+
+    private function renderOnlyView($view){
+        ob_start();
+        include_once Application::$ROOT_DIR."/views/$view.php";
+        return ob_get_clean();
     }
 }

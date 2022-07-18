@@ -4,14 +4,17 @@ require_once __DIR__ . "/../vendor/autoload.php";
 
 use Core\Application;
 
-$app = new Application();
+$root = dirname(__DIR__);
 
-$app->router->get("/", function(){
+$app = new Application($root);
+
+$app->router->get("/", "home");
+
+
+$app->router->get("/function", function(){
     return "peng";
 });
 
-$app->router->get("/contact", function(){
-    echo "contact";
-});
+$app->router->get("/contact", "contact");
 
 $app->run();
