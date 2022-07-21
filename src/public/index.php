@@ -3,10 +3,7 @@
 require_once __DIR__ . "/../vendor/autoload.php";
 
 use Core\Application;
-use Contollers\SiteController;
-
-$controller = new SiteController();
-$controller->test();
+use Controllers\ContactController;
 
 
 $root = dirname(__DIR__);
@@ -20,10 +17,8 @@ $app->router->get("/function", function(){
     return "peng";
 });
 
-$app->router->get("/contact", "contact");
+$app->router->get("/contact", [ContactController::class, "contactPage"]);
 
-$app->router->post("/contact", function () {
-    echo "AY CARAMBA!";
-});
+$app->router->post("/contact", [ContactController::class, "handleContact"]);
 
 $app->run();
