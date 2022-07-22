@@ -4,6 +4,7 @@ namespace Controllers;
 
 use Core\Controller;
 use Core\Request;
+use Models\User;
 
 class AuthController extends Controller{
 
@@ -22,7 +23,18 @@ class AuthController extends Controller{
     }
 
     public function registerHandler(Request $request){
-        var_dump($request->getBody());
+        $userModel = new User();
+        $userModel->loadData($request->getBody());
+
+        if($userModel->validate() && $userModel->register()){
+            return $this->render("home");
+        }
+
+       // echo "<pre>";
+       // var_dump($userModel->errors);
+       // echo "<pre>";
+
+        return $this->render("register", ["user" => $userModel]);
     }
 
 }
