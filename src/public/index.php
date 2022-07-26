@@ -7,9 +7,19 @@ use Core\Application;
 use Controllers\ContactController;
 use Controllers\HomeController;
 
+
+$config = [
+    "db" => [
+        "dsn" => "mysql:host=db;dbname=company1",
+        "user" => "root",
+        "password" => "php_mvc",
+
+    ]
+];
+
 $root = dirname(__DIR__);
 
-$app = new Application($root);
+$app = new Application($root, $config);
 
 $app->router->get("/", [HomeController::class, "homePage"]);
 

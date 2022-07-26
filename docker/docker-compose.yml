@@ -19,3 +19,14 @@ services:
     volumes:
       - ../src:/var/www
       - ./nginx:/etc/nginx/conf.d
+  db:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=php_mvc
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080    
