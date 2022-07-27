@@ -10,7 +10,8 @@ class Application{
     public Response $response;
     public Controller $controller;
     public Database $db;
-
+    public Session $session;
+    
     public function __construct($rootPath, array $config)
     {
         self::$ROOT_DIR = $rootPath;
@@ -18,6 +19,7 @@ class Application{
         $this->request = new Request();
         $this->response = new Response();
         $this->router = new Router();
+        $this->session = new Session();
 
         $this->db = new Database($config["db"]);
     }

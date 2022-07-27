@@ -9,10 +9,10 @@ use Core\Application;
 
 $config = [
     "db" => [
-        "dsn" => "mysql:host=db;dbname=company1",
+        "dsn" => "mysql:host=db;",
+        "dbName" => "my_first_mvc",
         "user" => "root",
         "password" => "php_mvc",
-
     ]
 ];
 

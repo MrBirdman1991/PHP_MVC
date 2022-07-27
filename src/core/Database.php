@@ -11,8 +11,13 @@ class Database{
         $dsn = $config["dsn"] ?? "";
         $user = $config["user"] ?? "";
         $password = $config["password"] ?? "";
-        $this->pdo = new \PDO($dsn, $user, $password);
+        $dbName = $config["dbName"];
+
+        $this->pdo = new \PDO($dsn, $user,  $password);
         $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+
+        $this->pdo->query("CREATE DATABASE IF NOT EXISTS $dbName");
+        $this->pdo->query("use $dbName");
     }
 
     public function applyMigrations(){

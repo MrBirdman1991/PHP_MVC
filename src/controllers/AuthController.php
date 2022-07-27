@@ -2,6 +2,7 @@
 
 namespace Controllers;
 
+use Core\Application;
 use Core\Controller;
 use Core\Request;
 use Models\User;
@@ -15,7 +16,7 @@ class AuthController extends Controller{
     public function loginHandler(Request $request){
         $this->setLayout("authLayout");
         var_dump($request->getBody());
-        return $this->render("home");
+        return Application::$app->response->redirect("/");
     }
 
     public function registerPage(){
@@ -26,8 +27,9 @@ class AuthController extends Controller{
         $userModel = new User();
         $userModel->loadData($request->getBody());
 
-        if($userModel->validate() && $userModel->register()){
-            return $this->render("home");
+        if($userModel->validate() && $userModel->save()){
+            Application::$app->session->setFlash("success", "thanks for registering");
+            return Application::$app->response->redirect("/");
         }
 
        // echo "<pre>";
