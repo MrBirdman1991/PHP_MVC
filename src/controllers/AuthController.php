@@ -5,6 +5,7 @@ namespace Controllers;
 use Core\Application;
 use Core\Controller;
 use Core\Request;
+use Models\LoginForm;
 use Models\User;
 
 class AuthController extends Controller{
@@ -14,9 +15,15 @@ class AuthController extends Controller{
     }
 
     public function loginHandler(Request $request){
-        $this->setLayout("authLayout");
-        var_dump($request->getBody());
-        return Application::$app->response->redirect("/");
+        $loginForm = new LoginForm();
+        $loginForm->loadData($request->getBody());
+
+        if($loginForm->validate() && $loginForm->login()){
+            Application::$app->session->setFlash("success", "you are logged in succesfully");
+            return Application::$app->response->redirect("/");
+        }
+
+        return $this->render("login", ["user" => $loginForm]);
     }
 
     public function registerPage(){

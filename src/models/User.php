@@ -22,12 +22,12 @@ class User extends DbModel{
         ];
     }
 
-    public function attributes(): array
+    public static function attributes(): array
     {
         return ["email", "password", "status"];
     }
 
-    public function tableName(): string
+    public static function tableName(): string
     {
         return "users";
     }

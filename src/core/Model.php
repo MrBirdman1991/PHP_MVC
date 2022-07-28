@@ -9,6 +9,7 @@ abstract class Model{
     const RULE_MAX = 'max';
     const RULE_MATCH = 'match';
     const RULE_UNIQUE = 'unique';
+    const RULE_AUTH_ERROR = "auth_error";
     
     public array $errors = [];
 
@@ -83,6 +84,7 @@ abstract class Model{
             self::RULE_MAX => 'Max length of this field must be {max}',
             self::RULE_MATCH => 'This field must be the same as {match}',
             self::RULE_UNIQUE => 'Record with with this field {field} already exists',
+            self::RULE_AUTH_ERROR => "Sorry auth error"
         ];
     }
 
